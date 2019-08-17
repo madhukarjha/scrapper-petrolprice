@@ -7,22 +7,23 @@ async function main() {
     const html = await getHtml(url, false);
     const $ = await cheerio.load(html);
     let states = [];
-    $("h2.txtC+div div.W70, h2.txtC+div div.fl, h2.txtC+div div.fnt18").map((i, element) => {
-        console.log(element);
-    }).get();
-    // $('#StateDropDownList').find('option').each((i,op) => {
-    //     states.push($(op).text());
-    // })
-    // states.forEach(function(state){
 
-    //     console.log(state);
-    // });
-    // await page.waitFor(5000)
-    // await page.select('#StateDropDownList', states[1]);
-    // await page.waitFor(5000)
-    // const selectElem = await page.$('select[id="StateDropDownList"]');
-    // await selectElem.type(states[1]);
-    // await page.waitFor(5000)
+    $(".container > #mainDiv").map((i, element) => {
+        // state
+        const state = $(element).parent().parent().prev().text();
+        // city
+        let elementObj = $(element).find(".W70.fl.fnt18");
+        const city = elementObj.text() ? elementObj.text().trim() : elementObj.text();
+
+        // price
+        elementObj = $(element).find(".W60.fl > b");
+        const price = elementObj.text();
+
+        // date
+        elementObj = $(element).find(".displayInlineBlock.boderBox.fnt13.fr");
+        const date = elementObj.text() ? elementObj.text().trim() : elementObj.text();
+        console.log(state + ' - ' + city + ' - ' + price +  ' - ' + date);
+    }).get(); 
 }
 
 async function getHtml(url, headless) {
@@ -40,4 +41,4 @@ async function getHtml(url, headless) {
     }
 }
 
-main(); 
+main();
