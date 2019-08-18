@@ -5,5 +5,5 @@ const db = {
 }
 const dbtype = 'mysql';
 
-module.exports = db;
-module.exports = dbtype;
+module.exports.db = db;
+module.exports.dbtype = dbtype;
