@@ -1,28 +1,33 @@
 const puppeteer = require("puppeteer");
 const cheerio = require('cheerio');
 const request = require('request-promise');
+const PetrolPrice = require('../models').PetrolPrice;
 
+let prices = [];
 async function main() {
     const url = "https://www.mypetrolprice.com/petrol-price-in-india.aspx";
     const html = await getHtml(url, false);
     const $ = await cheerio.load(html);
-    let states = [];
 
     $(".container > #mainDiv").map((i, element) => {
         // state
         const state = $(element).parent().parent().prev().text();
+        // prices[i].state = state;
         // city
         let elementObj = $(element).find(".W70.fl.fnt18");
         const city = elementObj.text() ? elementObj.text().trim() : elementObj.text();
+        // prices[i].city = city;
 
         // price
         elementObj = $(element).find(".W60.fl > b");
         const price = elementObj.text();
+        // prices[i].price = price;
 
         // date
         elementObj = $(element).find(".displayInlineBlock.boderBox.fnt13.fr");
         const date = elementObj.text() ? elementObj.text().trim() : elementObj.text();
-        console.log(state + ' - ' + city + ' - ' + price +  ' - ' + date);
+        // prices[i].date = date;
+        save({state: state, city: city, price: price, dt: date});
     }).get(); 
 }
 
@@ -41,4 +46,10 @@ async function getHtml(url, headless) {
     }
 }
 
+function save(obj){
+    PetrolPrice.create(obj)
+    .then((result) => {
+
+    });
+}
 main();
