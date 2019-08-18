@@ -1,7 +1,8 @@
 const db = {
     schema: 'dailypetrolprice',
     username: 'root',
-    password: '123456'
+    password: '123456',
+    host: 'localhost'
 }
 const dbtype = 'mysql';
 
