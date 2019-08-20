@@ -27,8 +27,8 @@ async function main() {
         elementObj = $(element).find(".displayInlineBlock.boderBox.fnt13.fr");
         const date = elementObj.text() ? elementObj.text().trim() : elementObj.text();
         // prices[i].date = date;
-        save({state: state, city: city, price: price, dt: date});
-    }).get(); 
+        save({ state: state, city: city, price: price, dt: date });
+    }).get();
 }
 
 async function getHtml(url, headless) {
@@ -46,10 +46,21 @@ async function getHtml(url, headless) {
     }
 }
 
-function save(obj){
-    PetrolPrice.create(obj)
-    .then((result) => {
+function save(obj) {
+    PetrolPrice.count({ where: { dt: obj.dt, city: obj.city } })
+        .then(count => {
+            if (count === 0) {
+                PetrolPrice.create(obj)
+                    .then((result) => {
 
-    });
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        });
 }
 main();
