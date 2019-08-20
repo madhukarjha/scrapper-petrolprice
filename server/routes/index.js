@@ -5,5 +5,7 @@ module.exports = (app) => {
     message: 'Welcome to the Todos API!',
   }));
 
-  app.get('/api/findAll', priceController.findAll); // get all records
+  app.get('/api/findBycity/:city', priceController.findBycity); // get all records
+
+
 };
