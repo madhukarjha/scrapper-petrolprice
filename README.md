@@ -9,4 +9,7 @@ document.querySelectorAll("h2.txtC a.noUnderline").forEach(function(result){cons
 
 
 https://medium.com/@prajramesh93/getting-started-with-node-express-and-mysql-using-sequelize-ed1225afc3e0
-https://github.com/rameshpraja/expressJSwithSequelized
+
+TODO:
+- store state and city in separate tables and establish associations
+- If db not available then store it in json and sync later
