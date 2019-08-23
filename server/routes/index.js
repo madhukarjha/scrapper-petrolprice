@@ -6,6 +6,6 @@ module.exports = (app) => {
   }));
 
   app.get('/api/findBycity/:city', priceController.findBycity); // get all records
-
+  app.get('/api/findAll', priceController.findAll);
 
 };

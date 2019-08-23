@@ -2,10 +2,10 @@ var createError = require('http-errors');
 var express = require('express');
 var logger = require('morgan');
 const bodyParser = require('body-parser');
-
-
+const cors = require('cors');
 
 var app = express();
+app.use(cors());
 
 // view engine setup
 
